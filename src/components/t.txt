@@ -1,0 +1,64 @@
+/* @keyframes scan {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.animate-scan {
+  animation: scan 2s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Additional styles for rotate transforms */
+.origin-top {
+  transform-origin: top;
+}
+
+.origin-bottom {
+  transform-origin: bottom;
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+.-rotate-45 {
+  transform: rotate(-45deg);
+}
+
+/* Additional styles for grid */
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+} */

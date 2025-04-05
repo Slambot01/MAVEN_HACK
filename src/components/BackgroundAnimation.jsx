@@ -88,11 +88,12 @@ const NodeSphere = () => {
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.002;
+      groupRef.current.rotation.x += 0.001;
     }
   });
 
-  const radius = 1;
-  const segments = 12; // defines node grid density
+  const radius = 3.25;
+  const segments = 8; // defines node grid density
 
   // Generate regular points on the sphere surface
   const points = [];
@@ -127,15 +128,26 @@ const NodeSphere = () => {
   }
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} position={[-2.2, -2.7, 0]}>
       {/* Render nodes as small spheres */}
       {points.map((point, i) => (
-        <mesh key={i} position={point}>
-          <sphereGeometry args={[0.015, 6, 6]} />
-          <meshBasicMaterial color="#ffffff" opacity={0.6} transparent />
+        // <mesh key={i} position={point}>
+        //   <sphereGeometry args={[0.015, 6, 6]} />
+        //   <meshBasicMaterial color="#ffffff" opacity={0.6} transparent />
+        // </mesh>
+
+        <mesh>
+          <sphereGeometry args={[radius, 32, 32]} />
+          <meshStandardMaterial
+            color="#9b59b6"
+            wireframe
+            opacity={0.2}
+            transparent
+            emissive="#9b59b6"
+            emissiveIntensity={0.6}
+          />
         </mesh>
       ))}
-
       {/* Render smooth curved lines */}
       {curves.map((curve, i) => (
         <Line
@@ -149,7 +161,6 @@ const NodeSphere = () => {
           transparent
         />
       ))}
-
       {/* Render outer wireframe sphere */}
       <mesh>
         <sphereGeometry args={[radius, 32, 32]} />
@@ -228,6 +239,7 @@ const BackgroundAnimation = () => {
     particle.style.left = `${xPos}%`;
     particle.style.top = `${yPos}%`;
     particle.style.opacity = Math.random() * 0.5 + 0.1;
+    // particle.style.boxShadow = `0 0 8px ${colors[colorIndex]}55`; // subtle glow
 
     // Animation
     const duration = Math.random() * 20 + 10;
@@ -246,7 +258,7 @@ const BackgroundAnimation = () => {
       {!isMobile && (
         <div className="threejs-bg">
           <Canvas
-            camera={{ position: [0, 0, 3], fov: 50 }}
+            camera={{ position: [0, 0.8, 6], fov: 10 }}
             style={{
               position: "fixed",
               top: 0,

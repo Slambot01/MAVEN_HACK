@@ -20,7 +20,7 @@ const Header = () => {
             ></path>
           </svg>
         </div>
-        TrustID
+        Maven
       </div>
       <nav>
         <ul>
