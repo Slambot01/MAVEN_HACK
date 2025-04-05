@@ -901,15 +901,331 @@
 
 // 33//
 
+// import React, { useState } from "react";
+// import { Camera, ShieldCheck, Lock, Check, ArrowRight } from "lucide-react";
+// import "./DecentralizedIdentityVerification.css";
+
+// const DecentralizedIdentityVerification = () => {
+//   const [currentStep, setCurrentStep] = useState(1);
+//   const [photoID, setPhotoID] = useState(null);
+//   const [livePhoto, setLivePhoto] = useState(null);
+//   const [isProcessing, setIsProcessing] = useState(false);
+
+//   const handleUploadID = (e) => {
+//     if (e.target.files && e.target.files[0]) {
+//       setPhotoID(URL.createObjectURL(e.target.files[0]));
+//     }
+//   };
+
+//   const handleCaptureSelfie = () => {
+//     // Simulating camera capture
+//     // In a real implementation, you would use the device camera
+//     const mockSelfieUrl = "https://via.placeholder.com/320";
+//     setLivePhoto(mockSelfieUrl);
+//   };
+
+//   const handleNextStep = () => {
+//     if (currentStep < 4) {
+//       setCurrentStep(currentStep + 1);
+//     }
+
+//     // Simulate processing when submitting
+//     if (currentStep === 2) {
+//       setIsProcessing(true);
+//       setTimeout(() => {
+//         setIsProcessing(false);
+//         setCurrentStep(3);
+//       }, 3000);
+//     }
+//   };
+
+//   return (
+//     <div className="verification-panel">
+//       {/* Progress bar */}
+//       <div className="progress-container">
+//         <div className="step-indicators">
+//           {["ID Upload", "Facial Verification", "Processing", "Complete"].map(
+//             (step, index) => (
+//               <div key={index} className="step-indicator">
+//                 <div
+//                   className={`step-circle ${
+//                     currentStep > index + 1
+//                       ? "completed"
+//                       : currentStep === index + 1
+//                       ? "active"
+//                       : ""
+//                   }`}
+//                 >
+//                   {currentStep > index + 1 ? <Check size={16} /> : index + 1}
+//                 </div>
+//                 <span className="step-label">{step}</span>
+//               </div>
+//             )
+//           )}
+//         </div>
+//         <div className="progress-bar">
+//           <div
+//             className="progress-fill"
+//             style={{ width: `${((currentStep - 1) / 3) * 100}%` }}
+//           ></div>
+//         </div>
+//       </div>
+
+//       {/* Step 1: ID Upload */}
+//       {currentStep === 1 && (
+//         <div className="step-content">
+//           <h3 className="step-title">Upload Photo ID</h3>
+//           <p className="step-description">
+//             Please upload a clear photo of your government-issued ID
+//           </p>
+
+//           {!photoID ? (
+//             <div className="upload-container">
+//               <input
+//                 type="file"
+//                 id="id-upload"
+//                 className="file-input"
+//                 onChange={handleUploadID}
+//                 accept="image/*"
+//               />
+//               <label htmlFor="id-upload" className="upload-label">
+//                 <div className="upload-icon">
+//                   <svg
+//                     width="32"
+//                     height="32"
+//                     viewBox="0 0 24 24"
+//                     fill="none"
+//                     stroke="currentColor"
+//                     strokeWidth="2"
+//                     strokeLinecap="round"
+//                     strokeLinejoin="round"
+//                   >
+//                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+//                     <polyline points="17 8 12 3 7 8"></polyline>
+//                     <line x1="12" y1="3" x2="12" y2="15"></line>
+//                   </svg>
+//                 </div>
+//                 <p className="upload-text">Click to upload ID</p>
+//                 <p className="upload-subtext">
+//                   Passport, Driver's License, or National ID
+//                 </p>
+//               </label>
+//             </div>
+//           ) : (
+//             <div className="preview-container">
+//               <div className="id-preview">
+//                 <img
+//                   src={photoID}
+//                   alt="ID Document"
+//                   className="preview-image"
+//                 />
+//               </div>
+//               <div className="preview-actions">
+//                 <button
+//                   className="change-button"
+//                   onClick={() => setPhotoID(null)}
+//                 >
+//                   Change photo
+//                 </button>
+//                 <div className="upload-status">
+//                   <Check size={16} className="status-icon" />
+//                   ID uploaded
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+
+//           <button
+//             className={`next-button ${!photoID ? "disabled" : ""}`}
+//             onClick={() => handleNextStep()}
+//             disabled={!photoID}
+//           >
+//             Continue <ArrowRight size={16} className="button-icon" />
+//           </button>
+//         </div>
+//       )}
+
+//       {/* {currentStep === 2 && (
+//         <div className="step-content">
+//           <h3 className="step-title">Facial Verification</h3>
+//           <p className="step-description">
+//             Take a selfie for facial features verification
+//           </p>
+
+//           {!livePhoto ? (
+//             <div className="camera-container">
+//               <div className="camera-preview">
+//                 <video
+//                   ref={(ref) => {
+//                     if (ref && !ref.srcObject) {
+//                       navigator.mediaDevices
+//                         .getUserMedia({ video: true })
+//                         .then((stream) => {
+//                           ref.srcObject = stream;
+//                           ref.onloadedmetadata = () => {
+//                             ref.play();
+//                           };
+//                         })
+//                         .catch((err) => {
+//                           console.error("Camera access error:", err);
+//                         });
+//                     }
+//                   }}
+//                   onLoadedMetadata={(e) => e.target.play()}
+//                   autoPlay
+//                   playsInline
+//                   muted
+//                   className="camera-feed"
+//                 />
+//               </div>
+//               <div className="camera-actions"> */}
+//       {/* <button
+//                   className="capture-button"
+//                   onClick={() => {
+//                     const video = document.querySelector("video");
+//                     const canvas = document.createElement("canvas");
+//                     canvas.width = video.videoWidth;
+//                     canvas.height = video.videoHeight;
+//                     const context = canvas.getContext("2d");
+//                     context.drawImage(video, 0, 0, canvas.width, canvas.height);
+//                     const photoData = canvas.toDataURL("image/png");
+//                     setLivePhoto(photoData);
+
+//                     // Stop camera after capture
+//                     const tracks = video.srcObject?.getTracks();
+//                     tracks?.forEach((track) => track.stop());
+//                     video.srcObject = null;
+//                   }}
+//                 >
+//                   Capture Photo
+//                 </button> */}
+//       {/* </div>
+//             </div>
+//           ) : (
+//             <div className="preview-container">
+//               <div className="selfie-preview">
+//                 <img src={livePhoto} alt="Selfie" className="preview-image" />
+//               </div>
+//               <div className="preview-actions">
+//                 <button
+//                   className="change-button"
+//                   onClick={() => setLivePhoto(null)}
+//                 >
+//                   Retake photo
+//                 </button>
+//                 <div className="upload-status">
+//                   <Check size={16} className="status-icon" />
+//                   Selfie captured
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+
+//           <div className="button-group">
+//             <button className="back-button" onClick={() => setCurrentStep(1)}>
+//               Back
+//             </button>
+//             <button
+//               className={`submit-button ${!livePhoto ? "disabled" : ""}`}
+//               onClick={handleNextStep}
+//               disabled={!livePhoto}
+//             >
+//               Submit
+//             </button>
+//           </div>
+//         </div>
+//       )} */}
+
+//       {/* Step 3: Processing
+//       {currentStep === 3 && (
+//         <div className="processing-content">
+//           <div className="processing-icon-container">
+//             {isProcessing ? (
+//               <div className="loading-spinner"></div>
+//             ) : (
+//               <div className="success-icon">
+//                 <ShieldCheck size={32} className="shield-check-icon" />
+//               </div>
+//             )}
+//           </div>
+
+//           <h3 className="processing-title">
+//             {isProcessing
+//               ? "Processing Your Information"
+//               : "Processing Complete"}
+//           </h3>
+
+//           <ul className="processing-steps">
+//             <li className="processing-step">
+//               <div className="step-check">
+//                 <Check size={12} className="check-icon" />
+//               </div>
+//               <span>Facial embeddings extracted</span>
+//             </li>
+//             <li className="processing-step">
+//               <div className="step-check">
+//                 <Check size={12} className="check-icon" />
+//               </div>
+//               <span>Features hashed and stored on-chain</span>
+//             </li>
+//             <li className="processing-step">
+//               <div className="step-check">
+//                 <Check size={12} className="check-icon" />
+//               </div>
+//               <span>Encrypted data stored on IPFS</span>
+//             </li>
+//           </ul> */}
+//       {/*
+//           {!isProcessing && (
+//             <button className="view-button" onClick={() => setCurrentStep(4)}>
+//               View Credential
+//             </button>
+//           )}
+//         </div>
+//       )} */}
+
+//       {/* Step 4: Complete */}
+//       {/* {currentStep === 4 && (
+//         <div className="complete-content">
+//           <div className="complete-icon">
+//             <Check size={32} className="check-icon" />
+//           </div>
+
+//           <h3 className="complete-title">Maven Identity Created!</h3>
+//           <p className="complete-description">
+//             Your decentralized identity credential has been created
+//           </p>
+
+//           <div className="privacy-note">
+//             <div className="note-header">
+//               <Lock size={18} className="lock-icon" />
+//               <span className="note-title">Privacy Guaranteed</span>
+//             </div>
+//             <p className="note-text">
+//               Your raw data never left your device. Only encrypted facial
+//               embeddings are stored securely using blockchain technology.
+//             </p>
+//           </div>
+
+//           <button
+//             className="dashboard-button"
+//             onClick={() => (window.location.href = "/dashboard")}
+//           >
+//             Go to Dashboard
+//           </button>
+//         </div>
+//       )} */}
+//     </div>
+//   );
+// };
+
+// export default DecentralizedIdentityVerification;
 import React, { useState } from "react";
-import { Camera, ShieldCheck, Lock, Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import "./DecentralizedIdentityVerification.css";
 
 const DecentralizedIdentityVerification = () => {
-  const [currentStep, setCurrentStep] = useState(1);
   const [photoID, setPhotoID] = useState(null);
-  const [livePhoto, setLivePhoto] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleUploadID = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -917,304 +1233,73 @@ const DecentralizedIdentityVerification = () => {
     }
   };
 
-  const handleCaptureSelfie = () => {
-    // Simulating camera capture
-    // In a real implementation, you would use the device camera
-    const mockSelfieUrl = "https://via.placeholder.com/320";
-    setLivePhoto(mockSelfieUrl);
-  };
-
-  const handleNextStep = () => {
-    if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
-    }
-
-    // Simulate processing when submitting
-    if (currentStep === 2) {
-      setIsProcessing(true);
-      setTimeout(() => {
-        setIsProcessing(false);
-        setCurrentStep(3);
-      }, 3000);
-    }
-  };
-
   return (
     <div className="verification-panel">
-      {/* Progress bar */}
-      <div className="progress-container">
-        <div className="step-indicators">
-          {["ID Upload", "Facial Verification", "Processing", "Complete"].map(
-            (step, index) => (
-              <div key={index} className="step-indicator">
-                <div
-                  className={`step-circle ${
-                    currentStep > index + 1
-                      ? "completed"
-                      : currentStep === index + 1
-                      ? "active"
-                      : ""
-                  }`}
+      <div className="step-content">
+        <h3 className="step-title">Upload Photo ID</h3>
+        <p className="step-description">
+          Please upload a clear photo of your government-issued ID
+        </p>
+
+        {!photoID ? (
+          <div className="upload-container">
+            <input
+              type="file"
+              id="id-upload"
+              className="file-input"
+              onChange={handleUploadID}
+              accept="image/*"
+            />
+            <label htmlFor="id-upload" className="upload-label">
+              <div className="upload-icon">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  {currentStep > index + 1 ? <Check size={16} /> : index + 1}
-                </div>
-                <span className="step-label">{step}</span>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
               </div>
-            )
-          )}
-        </div>
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${((currentStep - 1) / 3) * 100}%` }}
-          ></div>
-        </div>
+              <p className="upload-text">Click to upload ID</p>
+              <p className="upload-subtext">
+                Passport, Driver's License, or National ID
+              </p>
+            </label>
+          </div>
+        ) : (
+          <div className="preview-container">
+            <div className="id-preview">
+              <img src={photoID} alt="ID Document" className="preview-image" />
+            </div>
+            <div className="preview-actions">
+              <button
+                className="change-button"
+                onClick={() => setPhotoID(null)}
+              >
+                Change photo
+              </button>
+              <div className="upload-status">
+                <Check size={16} className="status-icon" />
+                ID uploaded
+              </div>
+            </div>
+          </div>
+        )}
+
+        <button
+          className={`next-button ${!photoID ? "disabled" : ""}`}
+          disabled={!photoID}
+        >
+          Continue <ArrowRight size={16} className="button-icon" />
+        </button>
       </div>
-
-      {/* Step 1: ID Upload */}
-      {currentStep === 1 && (
-        <div className="step-content">
-          <h3 className="step-title">Upload Photo ID</h3>
-          <p className="step-description">
-            Please upload a clear photo of your government-issued ID
-          </p>
-
-          {!photoID ? (
-            <div className="upload-container">
-              <input
-                type="file"
-                id="id-upload"
-                className="file-input"
-                onChange={handleUploadID}
-                accept="image/*"
-              />
-              <label htmlFor="id-upload" className="upload-label">
-                <div className="upload-icon">
-                  <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="17 8 12 3 7 8"></polyline>
-                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                  </svg>
-                </div>
-                <p className="upload-text">Click to upload ID</p>
-                <p className="upload-subtext">
-                  Passport, Driver's License, or National ID
-                </p>
-              </label>
-            </div>
-          ) : (
-            <div className="preview-container">
-              <div className="id-preview">
-                <img
-                  src={photoID}
-                  alt="ID Document"
-                  className="preview-image"
-                />
-              </div>
-              <div className="preview-actions">
-                <button
-                  className="change-button"
-                  onClick={() => setPhotoID(null)}
-                >
-                  Change photo
-                </button>
-                <div className="upload-status">
-                  <Check size={16} className="status-icon" />
-                  ID uploaded
-                </div>
-              </div>
-            </div>
-          )}
-
-          <button
-            className={`next-button ${!photoID ? "disabled" : ""}`}
-            onClick={() => handleNextStep()}
-            disabled={!photoID}
-          >
-            Continue <ArrowRight size={16} className="button-icon" />
-          </button>
-        </div>
-      )}
-
-      {/* {currentStep === 2 && (
-        <div className="step-content">
-          <h3 className="step-title">Facial Verification</h3>
-          <p className="step-description">
-            Take a selfie for facial features verification
-          </p>
-
-          {!livePhoto ? (
-            <div className="camera-container">
-              <div className="camera-preview">
-                <video
-                  ref={(ref) => {
-                    if (ref && !ref.srcObject) {
-                      navigator.mediaDevices
-                        .getUserMedia({ video: true })
-                        .then((stream) => {
-                          ref.srcObject = stream;
-                          ref.onloadedmetadata = () => {
-                            ref.play();
-                          };
-                        })
-                        .catch((err) => {
-                          console.error("Camera access error:", err);
-                        });
-                    }
-                  }}
-                  onLoadedMetadata={(e) => e.target.play()}
-                  autoPlay
-                  playsInline
-                  muted
-                  className="camera-feed"
-                />
-              </div>
-              <div className="camera-actions"> */}
-      {/* <button
-                  className="capture-button"
-                  onClick={() => {
-                    const video = document.querySelector("video");
-                    const canvas = document.createElement("canvas");
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    const context = canvas.getContext("2d");
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const photoData = canvas.toDataURL("image/png");
-                    setLivePhoto(photoData);
-
-                    // Stop camera after capture
-                    const tracks = video.srcObject?.getTracks();
-                    tracks?.forEach((track) => track.stop());
-                    video.srcObject = null;
-                  }}
-                >
-                  Capture Photo
-                </button> */}
-      {/* </div>
-            </div>
-          ) : (
-            <div className="preview-container">
-              <div className="selfie-preview">
-                <img src={livePhoto} alt="Selfie" className="preview-image" />
-              </div>
-              <div className="preview-actions">
-                <button
-                  className="change-button"
-                  onClick={() => setLivePhoto(null)}
-                >
-                  Retake photo
-                </button>
-                <div className="upload-status">
-                  <Check size={16} className="status-icon" />
-                  Selfie captured
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div className="button-group">
-            <button className="back-button" onClick={() => setCurrentStep(1)}>
-              Back
-            </button>
-            <button
-              className={`submit-button ${!livePhoto ? "disabled" : ""}`}
-              onClick={handleNextStep}
-              disabled={!livePhoto}
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      )} */}
-
-      {/* Step 3: Processing */}
-      {currentStep === 3 && (
-        <div className="processing-content">
-          <div className="processing-icon-container">
-            {isProcessing ? (
-              <div className="loading-spinner"></div>
-            ) : (
-              <div className="success-icon">
-                <ShieldCheck size={32} className="shield-check-icon" />
-              </div>
-            )}
-          </div>
-
-          <h3 className="processing-title">
-            {isProcessing
-              ? "Processing Your Information"
-              : "Processing Complete"}
-          </h3>
-
-          <ul className="processing-steps">
-            <li className="processing-step">
-              <div className="step-check">
-                <Check size={12} className="check-icon" />
-              </div>
-              <span>Facial embeddings extracted</span>
-            </li>
-            <li className="processing-step">
-              <div className="step-check">
-                <Check size={12} className="check-icon" />
-              </div>
-              <span>Features hashed and stored on-chain</span>
-            </li>
-            <li className="processing-step">
-              <div className="step-check">
-                <Check size={12} className="check-icon" />
-              </div>
-              <span>Encrypted data stored on IPFS</span>
-            </li>
-          </ul>
-
-          {!isProcessing && (
-            <button className="view-button" onClick={() => setCurrentStep(4)}>
-              View Credential
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Step 4: Complete */}
-      {currentStep === 4 && (
-        <div className="complete-content">
-          <div className="complete-icon">
-            <Check size={32} className="check-icon" />
-          </div>
-
-          <h3 className="complete-title">Maven Identity Created!</h3>
-          <p className="complete-description">
-            Your decentralized identity credential has been created
-          </p>
-
-          <div className="privacy-note">
-            <div className="note-header">
-              <Lock size={18} className="lock-icon" />
-              <span className="note-title">Privacy Guaranteed</span>
-            </div>
-            <p className="note-text">
-              Your raw data never left your device. Only encrypted facial
-              embeddings are stored securely using blockchain technology.
-            </p>
-          </div>
-
-          <button
-            className="dashboard-button"
-            onClick={() => (window.location.href = "/dashboard")}
-          >
-            Go to Dashboard
-          </button>
-        </div>
-      )}
     </div>
   );
 };

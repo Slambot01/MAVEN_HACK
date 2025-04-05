@@ -10,3 +10,26 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+<script>
+  const neonCursor = document.createElement("div");
+  neonCursor.classList.add("neon-cursor");
+  document.body.appendChild(neonCursor);
+
+  document.addEventListener("mousemove", (e) => {
+    // Move main cursor
+    neonCursor.style.top = `${e.clientY}px`;
+    neonCursor.style.left = `${e.clientX}px`;
+
+    // Create trail dot
+    const trailDot = document.createElement("div");
+    trailDot.classList.add("trail-dot");
+    trailDot.style.top = `${e.clientY}px`;
+    trailDot.style.left = `${e.clientX}px`;
+    document.body.appendChild(trailDot);
+
+    // Remove trail dot after animation
+    setTimeout(() => {
+      trailDot.remove();
+    }, 500);
+  });
+</script>

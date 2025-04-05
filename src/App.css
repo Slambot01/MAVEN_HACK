@@ -169,6 +169,20 @@ h1 {
   height: 500px;
   position: relative;
 }
+.neon-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #8dbdbd; /* Neon cyan */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 8px #42eeee, 0 0 16px #00ffff, 0 0 24px #00ffff;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear;
+}
 
 /* .polygon {
   position: absolute;
@@ -214,6 +228,9 @@ h1 {
 .glow-effect {
   filter: drop-shadow(0 0 8px var(--primary));
 }
+body {
+  cursor: none;
+}
 
 /* @keyframes rotate {
   0% {
@@ -247,13 +264,35 @@ h1 {
     display: none;
   }
 }
+.bg-animation::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+      circle at center,
+      rgba(155, 89, 182, 0.15) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(52, 152, 219, 0.08) 0%,
+      transparent 60%
+    );
+  pointer-events: none;
+  filter: blur(20px);
+  z-index: -2;
+  box-shadow: 0 0 30px rgba(155, 89, 182, 0.5), 0 0 50px rgba(52, 152, 219, 0.5);
+}
 
 .particle {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
   filter: blur(1.5px); /* soft glow */
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 6px rgba(243, 243, 91, 0.4);
   will-change: transform;
   animation: float 20s ease-in-out infinite;
 }
@@ -550,6 +589,7 @@ h1 {
 .footer-section h4 {
   font-size: 18px;
   margin-bottom: 20px;
+
   background: linear-gradient(135deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
