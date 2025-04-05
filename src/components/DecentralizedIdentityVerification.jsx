@@ -1222,6 +1222,8 @@
 // export default DecentralizedIdentityVerification;
 import React, { useState } from "react";
 import { Check, ArrowRight } from "lucide-react";
+import { uploadToIpfs } from "../utils/encryptUpload";
+import axios from "axios";
 import "./DecentralizedIdentityVerification.css";
 
 const DecentralizedIdentityVerification = () => {
@@ -1296,6 +1298,28 @@ const DecentralizedIdentityVerification = () => {
         <button
           className={`next-button ${!photoID ? "disabled" : ""}`}
           disabled={!photoID}
+          onClick={async() => {
+            const input = document.getElementById("id-upload");
+            const file = input?.files?.[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+              const response = await axios.post("http://localhost:8000/upload", formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              });
+
+              uploadToIpfs(response.data.embeddings)
+
+              console.log("Server Response:", response.data);
+            } catch (error) {
+              console.error("Upload failed:", error);
+            }
+          }}
         >
           Continue <ArrowRight size={16} className="button-icon" />
         </button>
