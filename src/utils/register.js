@@ -2,6 +2,7 @@ import { ethers, keccak256, toUtf8Bytes } from "ethers";
 
 const register = async (facialFeatures, cid) => {
   try {
+    console.log("registering")
     if (!window.ethereum) {
       alert("Metamask not installed");
     }
@@ -112,7 +113,7 @@ const register = async (facialFeatures, cid) => {
         inputs: [],
       },
     ];
-    const contractAddress = "0x";
+    const contractAddress = "0x16ab69Ed506F7F3aBFf5Ee3565e57A22C5f3c305";
 
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
     const tx = await contract.register(facialFeaturesHash, cidHash);
@@ -120,7 +121,10 @@ const register = async (facialFeatures, cid) => {
     const filterAppEventsByCaller = contract.filters.Registered(address);
     contract.on(filterAppEventsByCaller, () => {
       console.log("Registered successfully");
+      return true
     });
+
+    return false
   } catch (error) {
     console.error(error);
   }
